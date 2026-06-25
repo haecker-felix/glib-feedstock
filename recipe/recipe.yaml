@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "2.88.1"
+  version: "2.88.2"
   major_minor: ${{ (version | split("."))[:2] | join(".") }}
   posix: ${{ "m2-" if win else "" }}
   native: ${{ "m2w64-" if win else "" }}
@@ -15,7 +15,7 @@ recipe:
 
 source:
   url: https://download.gnome.org/sources/glib/${{ major_minor }}/glib-${{ version }}.tar.xz
-  sha256: 51ab804c56f6eab3e5045c774d1290ac5e4c923d4f9a3d8e33123bee45c1840e
+  sha256: cf3f215a640c8a4257f14317586b8f1fdd25a10a93cb4bdda147c0f9ad88e74f
   patches:
     # Related to this patch https://bugzilla.gnome.org/show_bug.cgi?id=673135
     # However, it was rejected by upstream. Homebrew decided to keep their own
@@ -40,7 +40,7 @@ source:
         - patches/0006-Skip-flaky-tests-on-linux64-CI.patch
 
 build:
-  number: 2
+  number: 0
 
 outputs:
   - staging:
