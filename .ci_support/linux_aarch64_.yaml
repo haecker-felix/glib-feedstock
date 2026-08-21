@@ -17,7 +17,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-aarch64:alma10
 libffi:
-- '3.5'
+- '3.7'
 libiconv:
 - '1'
 pcre2:
