@@ -3,7 +3,6 @@ bot:
     even_odd_versions: true
 build_platform:
   linux_ppc64le: linux_64
-  win_arm64: win_64
 conda_build:
   error_overdepending: true
   error_overlinking: true
@@ -16,4 +15,5 @@ github:
 provider:
   linux_aarch64: default
   osx_arm64: default
+  win_arm64: default
 test: native_and_emulated
