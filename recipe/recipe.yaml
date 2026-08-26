@@ -53,14 +53,18 @@ outputs:
             then:
               - cross-python_${{ target_platform }}
       build:
-        - gettext-tools
+        # TODO: Remove conditional once bootstraped (here and elsewhere)
+        - if: target_platform != 'win-arm64'
+          then: gettext-tools
         - if: win
           then:
             - m2-filesystem
             - ${{ posix }}patch
         - meson
         - ninja
-        - ${{ native }}pkg-config
+        # TODO: Remove conditional once bootstraped (here and elsewhere)
+        - if: target_platform != 'win-arm64'
+          then: ${{ native }}pkg-config
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}
@@ -107,13 +111,15 @@ outputs:
             then:
               - cross-python_${{ target_platform }}
       build:
-        - gettext-tools
+        - if: target_platform != 'win-arm64'
+          then: gettext-tools
         - if: win
           then:
             - ${{ posix }}patch
         - meson
         - ninja
-        - ${{ native }}pkg-config
+        - if: target_platform != 'win-arm64'
+          then: ${{ native }}pkg-config
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}
@@ -184,13 +190,15 @@ outputs:
           - libiconv
           - zlib
       build:
-        - gettext-tools
+        - if: target_platform != 'win-arm64'
+          then: gettext-tools
         - if: win
           then:
             - ${{ posix }}patch
         - meson
         - ninja
-        - ${{ native }}pkg-config
+        - if: target_platform != 'win-arm64'
+          then: ${{ native }}pkg-config
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}
@@ -251,13 +259,15 @@ outputs:
           # This is intentional to workaround conda-build"s overdependening checks.
           - libintl-devel
       build:
-        - gettext-tools
+        - if: target_platform != 'win-arm64'
+          then: gettext-tools
         - if: win
           then:
             - ${{ posix }}patch
         - meson
         - ninja
-        - ${{ native }}pkg-config
+        - if: target_platform != 'win-arm64'
+          then: ${{ native }}pkg-config
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}

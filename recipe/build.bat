@@ -7,7 +7,7 @@ set "GIR_PREFIX=%cd%\g-ir-prefix"
 
 @REM See `build.sh` for a general description of how we handle the circular
 @REM dependency between glib and gobject-introspection.
-call conda create --console=classic -p %GIR_PREFIX% -y -c conda-forge g-ir-build-tools gobject-introspection glib
+call conda create --console=classic -p %GIR_PREFIX% --platform %build_platform% -y -c conda-forge g-ir-build-tools gobject-introspection glib
 if errorlevel 1 exit 1
 
 @REM As on Linux/Mac, we need to make sure that g-ir-scanner is invoked by the Python
@@ -21,6 +21,16 @@ echo %GIR_PREFIX%\python.exe %GIR_PREFIX%\Library\bin\g-ir-scanner.py %%^* >%GIR
 if errorlevel 1 exit 1
 
 set "PATH=%PATH%;%GIR_PREFIX%\Library;%GIR_PREFIX%\Library\bin"
+
+@REM Get the win-64 pkg-config for win-arm64 bootstrapping
+if %target_platform%==win-arm64 (
+    if %build_platform%==win-arm64 (
+        set "WIN64_ENV=%cd%\pkg-config-win-64"
+        call conda create --console=classic -p %WIN64_ENV% --platform win-64 -y -c conda-forge m2w64-pkg-config gettext-tools
+        if errorlevel 1 exit 1
+        set "PATH=%PATH%;%GIR_PREFIX%\Library;%GIR_PREFIX%\Library\bin;%WIN64_ENV%\Library\mingw-w64\bin;%WIN64_ENV%\Library\bin"
+    )
+)
 
 mkdir forgebuild
 cd forgebuild
