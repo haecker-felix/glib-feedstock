@@ -7,7 +7,8 @@ set "GIR_PREFIX=%cd%\g-ir-prefix"
 
 @REM See `build.sh` for a general description of how we handle the circular
 @REM dependency between glib and gobject-introspection.
-call conda create --console=classic -p %GIR_PREFIX% --platform %build_platform% -y -c conda-forge g-ir-build-tools gobject-introspection glib
+@REM We use win-64 for win-arm64 too to aid in bootstrapping
+call conda create --console=classic -p %GIR_PREFIX% --platform win-64 -y -c conda-forge g-ir-build-tools gobject-introspection glib
 if errorlevel 1 exit 1
 
 @REM As on Linux/Mac, we need to make sure that g-ir-scanner is invoked by the Python
