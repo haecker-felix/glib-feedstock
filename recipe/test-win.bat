@@ -8,14 +8,14 @@ if %target_platform%==win-arm64 (
         call conda create --console=classic -p %WIN64_ENV% --platform win-64 -y -c conda-forge pkg-config
         if errorlevel 1 exit 1
         set "PATH=%PATH%;%WIN64_ENV%\Library\bin"
-        set "PKG_CONFIG_PATH=%LIBRARY_PREFIX%\lib\pkg-config"
+        set "PKG_CONFIG_PATH=%LIBRARY_PREFIX%\lib\pkgconfig;%PKG_CONFIG_PATH%"
     )
 ) else (
     set "MACHINE=x64"
 )
 
 for /f "delims=" %%a in ('pkg-config --libs --msvc-syntax glib-2.0') do (
-    %CC% ^
+    CALL %CC% ^
         /I "%LIBRARY_PREFIX%\include\glib-2.0" ^
         /I "%LIBRARY_PREFIX%\lib\glib-2.0\include" ^
         "/utf-8" ^
