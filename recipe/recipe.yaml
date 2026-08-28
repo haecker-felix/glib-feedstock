@@ -54,8 +54,7 @@ outputs:
               - cross-python_${{ target_platform }}
       build:
         # TODO: Remove conditional once bootstraped (here and elsewhere)
-        - if: target_platform != 'win-arm64'
-          then: gettext-tools
+        - gettext-tools
         - if: win
           then:
             - m2-filesystem
@@ -111,8 +110,7 @@ outputs:
             then:
               - cross-python_${{ target_platform }}
       build:
-        - if: target_platform != 'win-arm64'
-          then: gettext-tools
+        - gettext-tools
         - if: win
           then:
             - ${{ posix }}patch
@@ -190,8 +188,7 @@ outputs:
           - libiconv
           - zlib
       build:
-        - if: target_platform != 'win-arm64'
-          then: gettext-tools
+        - gettext-tools
         - if: win
           then:
             - ${{ posix }}patch
@@ -259,8 +256,7 @@ outputs:
           # This is intentional to workaround conda-build"s overdependening checks.
           - libintl-devel
       build:
-        - if: target_platform != 'win-arm64'
-          then: gettext-tools
+        - gettext-tools
         - if: win
           then:
             - ${{ posix }}patch
