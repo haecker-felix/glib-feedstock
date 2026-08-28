@@ -1,5 +1,15 @@
 @echo on
 
+@REM Get the win-64 pkg-config for win-arm64 bootstrapping
+set "WIN64_ENV=%cd%\pkg-config-win-64"
+if %target_platform%==win-arm64 (
+    if %build_platform%==win-arm64 (
+        call conda create --console=classic -p %WIN64_ENV% --platform win-64 -y -c conda-forge m2w64-pkg-config
+        if errorlevel 1 exit 1
+        set "PATH=%PATH%;%WIN64_ENV%\Library\mingw-w64\bin"
+    )
+)
+
 for /f "delims=" %%a in ('pkg-config --libs --msvc-syntax glib-2.0') do (
     %CC% /I "%LIBRARY_PREFIX%\include\glib-2.0" /I %LIBRARY_PREFIX%\lib\glib-2.0\include "/utf-8" "-D_GNU_SOURCE" "-DUNICODE" "-D_UNICODE" "-DG_DISABLE_CAST_CHECKS" "/wo4057" "/wd4068" "/wo4090" "/wd4100" "/wd4116" "/wo4125" "/wd4127" "/wd4146" "/wd4152" "/wd4201" "/wd4232" "/wo4245" "/wo4267" "/wd4334" "/wo4389" "/wo4702" "/wd4706" /Fe:output.exe test.c /link /MACHINE:x64 "/release" "/nologo" "/OPT:REF" %%a "/SUBSYSTEM:CONSOLE" "kernel32.lib" "user32.lib" "gdi32.lib" "winspool.lib" "shell32.lib" "ole32.lib" "oleaut32.lib" "uuid.lib" "comdlg32.lib" "advapi32.lib"
     if errorlevel 1 exit 1

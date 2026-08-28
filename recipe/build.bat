@@ -29,7 +29,7 @@ if %target_platform%==win-arm64 (
     if %build_platform%==win-arm64 (
         call conda create --console=classic -p %WIN64_ENV% --platform win-64 -y -c conda-forge m2w64-pkg-config
         if errorlevel 1 exit 1
-        set "PATH=%PATH%;%GIR_PREFIX%\Library;%GIR_PREFIX%\Library\bin;%WIN64_ENV%\Library\mingw-w64\bin"
+        set "PATH=%PATH%;%WIN64_ENV%\Library\mingw-w64\bin"
     )
 )
 

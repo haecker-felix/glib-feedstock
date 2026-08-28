@@ -53,7 +53,6 @@ outputs:
             then:
               - cross-python_${{ target_platform }}
       build:
-        # TODO: Remove conditional once bootstraped (here and elsewhere)
         - gettext-tools
         - if: win
           then:
@@ -319,7 +318,8 @@ outputs:
         requirements:
           run:
             - ${{ compiler("c") }}
-            - pkg-config
+            - if: target_platform != 'win-arm64'
+              then: ${{ native }}pkg-config
         files:
           recipe:
             - test.c
