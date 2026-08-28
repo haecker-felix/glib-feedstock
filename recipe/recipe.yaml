@@ -319,7 +319,7 @@ outputs:
           run:
             - ${{ compiler("c") }}
             - if: target_platform != 'win-arm64'
-              then: ${{ native }}pkg-config
+              then: pkg-config
         files:
           recipe:
             - test.c
