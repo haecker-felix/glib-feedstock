@@ -7,6 +7,7 @@ if %target_platform%==win-arm64 (
         call conda create --console=classic -p %WIN64_ENV% --platform win-64 -y -c conda-forge pkg-config
         if errorlevel 1 exit 1
         set "PATH=%PATH%;%WIN64_ENV%\Library\bin"
+        set "PKG_CONFIG_PATH=%LIBRARY_PREFIX%\lib\pkg-config"
     )
 )
 
