@@ -60,7 +60,9 @@ outputs:
             - ${{ posix }}patch
         - meson
         - ninja
-        - ${{ native }}pkg-config
+        # TODO: Remove conditional once bootstraped (here and elsewhere)
+        - if: target_platform != 'win-arm64'
+          then: ${{ native }}pkg-config
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}
@@ -113,7 +115,8 @@ outputs:
             - ${{ posix }}patch
         - meson
         - ninja
-        - ${{ native }}pkg-config
+        - if: target_platform != 'win-arm64'
+          then: ${{ native }}pkg-config
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}
@@ -190,7 +193,8 @@ outputs:
             - ${{ posix }}patch
         - meson
         - ninja
-        - ${{ native }}pkg-config
+        - if: target_platform != 'win-arm64'
+          then: ${{ native }}pkg-config
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}
@@ -257,7 +261,8 @@ outputs:
             - ${{ posix }}patch
         - meson
         - ninja
-        - ${{ native }}pkg-config
+        - if: target_platform != 'win-arm64'
+          then: ${{ native }}pkg-config
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}
@@ -313,7 +318,8 @@ outputs:
         requirements:
           run:
             - ${{ compiler("c") }}
-            - pkg-config
+            - if: target_platform != 'win-arm64'
+              then: pkg-config
         files:
           recipe:
             - test.c
