@@ -1,15 +1,7 @@
 @echo on
 
-@REM Get the win-64 pkg-config for win-arm64 bootstrapping
-set "WIN64_ENV=%cd%\pkg-config-win-64"
 if %target_platform%==win-arm64 (
     set "MACHINE=ARM64"
-    if %build_platform%==win-arm64 (
-        call conda create --console=classic -p %WIN64_ENV% --platform win-64 -y -c conda-forge pkg-config
-        if errorlevel 1 exit 1
-        set "PATH=%PATH%;%WIN64_ENV%\Library\bin"
-        set "PKG_CONFIG_PATH=%LIBRARY_PREFIX%\lib\pkgconfig;%PKG_CONFIG_PATH%"
-    )
 ) else (
     set "MACHINE=x64"
 )
