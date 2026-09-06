@@ -60,7 +60,7 @@ outputs:
             - ${{ posix }}patch
         - meson
         - ninja
-        - ${{ native }}pkg-config
+        - pkg-config
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}
@@ -113,7 +113,7 @@ outputs:
             - ${{ posix }}patch
         - meson
         - ninja
-        - ${{ native }}pkg-config
+        - pkg-config
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}
@@ -190,7 +190,7 @@ outputs:
             - ${{ posix }}patch
         - meson
         - ninja
-        - ${{ native }}pkg-config
+        - pkg-config
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}
@@ -257,7 +257,7 @@ outputs:
             - ${{ posix }}patch
         - meson
         - ninja
-        - ${{ native }}pkg-config
+        - pkg-config
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}
