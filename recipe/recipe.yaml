@@ -40,7 +40,7 @@ source:
         - patches/0006-Skip-flaky-tests-on-linux64-CI.patch
 
 build:
-  number: 3
+  number: 4
 
 outputs:
   - staging:
@@ -132,6 +132,8 @@ outputs:
         - zlib
         - pcre2
         - libiconv
+      run:
+        - zlib
       run_exports:
         - ${{ pin_subpackage("libglib") }}
       run_constraints:
