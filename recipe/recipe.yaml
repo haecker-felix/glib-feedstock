@@ -35,12 +35,16 @@ source:
         - patches/0005-Increase-some-test-timeouts.patch
     ## Seems like our CIs are likely incompatible with some dbus tests
     ## https://github.com/conda-forge/glib-feedstock/pull/199#issuecomment-2578085726
-    - if: linux64
+    - if: linux64 or aarch64
       then:
         - patches/0006-Skip-flaky-tests-on-linux64-CI.patch
 
 build:
-  number: 4
+  number: 5
+  variant:
+    # we don't want separate jobs if the newest python is in release candidate phase
+    ignore_keys:
+      - channel_sources
 
 outputs:
   - staging:
@@ -60,9 +64,7 @@ outputs:
             - ${{ posix }}patch
         - meson
         - ninja
-        # TODO: Remove conditional once bootstraped (here and elsewhere)
-        - if: target_platform != 'win-arm64'
-          then: ${{ native }}pkg-config
+        - pkg-config
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}
@@ -115,8 +117,7 @@ outputs:
             - ${{ posix }}patch
         - meson
         - ninja
-        - if: target_platform != 'win-arm64'
-          then: ${{ native }}pkg-config
+        - pkg-config
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}
@@ -195,8 +196,7 @@ outputs:
             - ${{ posix }}patch
         - meson
         - ninja
-        - if: target_platform != 'win-arm64'
-          then: ${{ native }}pkg-config
+        - pkg-config
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}
@@ -263,8 +263,7 @@ outputs:
             - ${{ posix }}patch
         - meson
         - ninja
-        - if: target_platform != 'win-arm64'
-          then: ${{ native }}pkg-config
+        - pkg-config
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}
@@ -320,8 +319,7 @@ outputs:
         requirements:
           run:
             - ${{ compiler("c") }}
-            - if: target_platform != 'win-arm64'
-              then: pkg-config
+            - pkg-config
         files:
           recipe:
             - test.c
